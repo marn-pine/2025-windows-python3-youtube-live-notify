@@ -2,4 +2,3 @@
 # Ready-compiled stand-alone .exe file used with .ini file
 # This app will notify you when a YouTube channel goes live. 
 # Right-click the tray icon and choose Exit to exit the app.
-# .exe file can copy to new file, .ini must be the same name 
