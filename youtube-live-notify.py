@@ -13,9 +13,11 @@ import pystray
 import winsound
 
 # external packages
-# pip install youtube-lv 
-# pip install auto-py-to-exe // for compile to .exe file
+# pip install youtube-lv
+# pip install pystray 
+# pip install pyinstaller // compile to .exe file // pyinstaller --onefile --noconsole youtube-live-notify.py
 from ytlv import youtube
+import pystray
 
 # check and delay 1 second
 def timer_event():
