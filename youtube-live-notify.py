@@ -54,7 +54,7 @@ timer_thread = threading.Thread(target=timer_event)
 timer_thread.start() 
 
 # windows system tray
-image = Image.open("youtube-live-notify.png") 
-icon = pystray.Icon("youtube-live-notify", image, "youtube-live-notify",menu=pystray.Menu(
+image = Image.open(tray_icon) 
+icon = pystray.Icon(app_name, image, app_name, menu=pystray.Menu(
        pystray.MenuItem("Exit", after_click)))
 icon.run()
