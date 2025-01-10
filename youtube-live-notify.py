@@ -57,5 +57,4 @@ timer_thread.start()
 image = Image.open("youtube-live-notify.png") 
 icon = pystray.Icon("youtube-live-notify", image, "youtube-live-notify",menu=pystray.Menu(
        pystray.MenuItem("Exit", after_click)))
-
 icon.run()
