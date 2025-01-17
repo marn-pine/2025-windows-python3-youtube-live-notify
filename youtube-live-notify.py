@@ -1,7 +1,8 @@
-# Latest update: 16-Jan-25, for Windows 11 and from Python 3.1.2 
+# Latest update: 17-Jan-25, for Windows 11 and from Python 3.1.2 
 # Ready-compiled stand-alone .exe file used with .ini file
 # This app will continuously notify you when a YouTube channel goes live. 
 # Right-click the tray icon and choose Exit to exit the app.                                                  
+
 
 # built-in packages
 from time import *
@@ -20,10 +21,10 @@ import winsound
 from ytlv import youtube
 import pystray
 
+
 # check and delay 1 second
 def timer_event():
-    global stop_threads, live_channel, notify_sound, sound_played
-    global tray_title, tray_subtitle
+    global stop_threads, live_channel, notify_sound, sound_played, tray_message
 
     while True:
         sleep(1)
@@ -38,9 +39,8 @@ def timer_event():
                     # winsound.SND_ASYNC can stop while playing    
                     winsound.PlaySound(notify_sound, winsound.SND_ASYNC + winsound.SND_LOOP)
                     sound_played = True
-                    icon.notify(tray_title, tray_subtitle)
+                    icon.notify(tray_message, title=None)
                         
-
 # right click tray menu     
 def after_click(icon, query):
     global stop_threads
@@ -48,19 +48,17 @@ def after_click(icon, query):
     if str(query) == "Exit":
         icon.stop()
         stop_threads = True       
-        
-        
+                
+
 # read .ini file // same as .exe file name
 app_name = os.path.splitext(os.path.basename(__file__))[0]
 ini_name = app_name + ".ini"
 configur = ConfigParser() 
 configur.read(ini_name)
-
 live_channel = configur.get('Live Channel','Live')
 notify_sound = configur.get('Notify Sound','Wav')
 tray_icon = configur.get('Tray Icon','Png')
-tray_title = configur.get('Tray Notify','Title')
-tray_subtitle = configur.get('Tray Notify','Sub')
+tray_message = configur.get('Tray Notify','Message')
 
 # prepare thread // timing event
 sound_played = False
