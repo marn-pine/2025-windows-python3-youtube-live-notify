@@ -1,4 +1,4 @@
-# Latest update: 20-Jan-25, for Windows 11 and from Python 3.1.2 
+# Latest update: 21-Jan-25, for Windows 11 and from Python 3.1.2 
 # Ready-compiled stand-alone .exe file used with .ini file
 # This app will continuously notify you when a YouTube channel goes live. 
 # Right-click the tray icon and choose Exit to exit the app.                                                  
@@ -32,7 +32,7 @@ def timer_event():
         if stop_threads == False: 
             if sound_played == False:
                 live = youtube(live_channel) 
-                if live.status == "LIVE" and live.islive == True:
+                if live.islive == True:
                     # winsound.SND_ASYNC can stop while playing    
                     winsound.PlaySound(sound_notify, winsound.SND_ASYNC + winsound.SND_LOOP)
                     sound_played = True
@@ -55,12 +55,12 @@ def after_click(icon, query):
 # read .ini file // same as .exe file name
 app_name = os.path.splitext(os.path.basename(__file__))[0]
 ini_name = app_name + ".ini"
-configur = ConfigParser() 
-configur.read(ini_name)
-live_channel = configur.get('Live Channel','Live')
-sound_notify = configur.get('Sound Notify','Wav')
-tray_icon = configur.get('Tray Icon','Png')
-tray_notify = configur.get('Tray Notify','Message')
+config = ConfigParser() 
+config.read(ini_name)
+live_channel = config.get('Live Channel','Live')
+sound_notify = config.get('Sound Notify','Wav')
+tray_icon = config.get('Tray Icon','Png')
+tray_notify = config.get('Tray Notify','Message')
 
 # prepare thread // timing event
 sound_played = False
