@@ -16,7 +16,8 @@ import winsound
 # pip install pystray 
 
 # compile .py to .exe
-# pip install pyinstaller // pyinstaller --onefile --noconsole youtube-live-notify.py
+# pip install pyinstaller 
+# pyinstaller --onefile --noconsole youtube-live-notify.py --distpath ./
 from ytlv import youtube
 import pystray
 
