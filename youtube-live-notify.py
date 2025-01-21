@@ -57,7 +57,7 @@ ini_name = app_name + ".ini"
 configur = ConfigParser() 
 configur.read(ini_name)
 live_channel = configur.get('Live Channel','Live')
-sound_notify = configur.get('Notify Sound','Wav')
+sound_notify = configur.get('Sound Notify','Wav')
 tray_icon = configur.get('Tray Icon','Png')
 tray_notify = configur.get('Tray Notify','Message')
 
