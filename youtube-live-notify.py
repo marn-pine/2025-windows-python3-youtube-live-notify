@@ -1,8 +1,7 @@
-# Latest update: 17-Jan-25, for Windows 11 and from Python 3.1.2 
+# Latest update: 20-Jan-25, for Windows 11 and from Python 3.1.2 
 # Ready-compiled stand-alone .exe file used with .ini file
 # This app will continuously notify you when a YouTube channel goes live. 
 # Right-click the tray icon and choose Exit to exit the app.                                                  
-
 
 # built-in packages
 from time import *
@@ -21,26 +20,29 @@ import winsound
 from ytlv import youtube
 import pystray
 
-
 # check and delay 1 second
 def timer_event():
-    global stop_threads, live_channel, notify_sound, sound_played, tray_message
+    global live_channel, sound_notify, tray_notify
+    global stop_threads, sound_played
 
+    # check and wait 1 second
     while True:
         sleep(1)
-        if stop_threads:
-            # stop playing
-            winsound.PlaySound(None, 0)
-            break
-        else:   
+        if stop_threads == False: 
             if sound_played == False:
                 live = youtube(live_channel) 
                 if live.status == "LIVE" and live.islive == True:
                     # winsound.SND_ASYNC can stop while playing    
-                    winsound.PlaySound(notify_sound, winsound.SND_ASYNC + winsound.SND_LOOP)
+                    winsound.PlaySound(sound_notify, winsound.SND_ASYNC + winsound.SND_LOOP)
                     sound_played = True
-                    icon.notify(tray_message, title=None)
-                        
+                    icon.notify(tray_notify, title=None)
+                    
+        if stop_threads == True:
+            if sound_played == True:
+                # stop playing
+                winsound.PlaySound(None, 0)
+            break
+                 
 # right click tray menu     
 def after_click(icon, query):
     global stop_threads
@@ -49,16 +51,15 @@ def after_click(icon, query):
         icon.stop()
         stop_threads = True       
                 
-
 # read .ini file // same as .exe file name
 app_name = os.path.splitext(os.path.basename(__file__))[0]
 ini_name = app_name + ".ini"
 configur = ConfigParser() 
 configur.read(ini_name)
 live_channel = configur.get('Live Channel','Live')
-notify_sound = configur.get('Notify Sound','Wav')
+sound_notify = configur.get('Notify Sound','Wav')
 tray_icon = configur.get('Tray Icon','Png')
-tray_message = configur.get('Tray Notify','Message')
+tray_notify = configur.get('Tray Notify','Message')
 
 # prepare thread // timing event
 sound_played = False
