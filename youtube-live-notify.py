@@ -5,7 +5,6 @@
 
 # built-in packages
 from time import *
-from PIL import Image
 from configparser import ConfigParser
 import threading
 import os
@@ -14,12 +13,13 @@ import winsound
 # external packages
 # pip install youtube-lv
 # pip install pystray 
+from ytlv import youtube
+import pystray
+from PIL import Image
 
 # compile .py to .exe
 # pip install pyinstaller 
 # pyinstaller --onefile --noconsole youtube-live-notify.py --distpath .\
-from ytlv import youtube
-import pystray
 
 # check and delay 1 second
 def timer_event():
